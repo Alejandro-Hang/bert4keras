@@ -17,7 +17,7 @@ from tqdm import tqdm
 
 maxlen = 256
 epochs = 10
-batch_size = 32
+batch_size = 10
 bert_layers = 12
 learning_rate = 2e-5  # bert_layers越小，学习率应该要越大
 crf_lr_multiplier = 1000  # 必要时扩大CRF层的学习率
@@ -145,7 +145,8 @@ class NamedEntityRecognizer(ViterbiDecoder):
                     starting = False
             else:
                 starting = False
-        return [(mapping[w[0]][0], mapping[w[-1]][-1], l) for w, l in entities]
+        result = [(mapping[w[0]][0], l) for w, l in entities]
+        return result
 
 
 NER = NamedEntityRecognizer(trans=K.eval(CRF.trans), starts=[0], ends=[0])
