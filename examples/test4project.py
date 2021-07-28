@@ -40,7 +40,13 @@ def load_data(filename):
         while not done:
             l = f.readline()
             if l != '':
-                d = [l]
+                l_copy = ''
+                for elem in l:
+                    if elem == ',' or elem == '。' or elem == '^':
+                        l_copy += '/'
+                    else:
+                        l_copy += elem
+                d = [l_copy]
                 for num in range(len(l)):
                     if l[num] == ',':
                         d.append([num, 'COMMA'])
